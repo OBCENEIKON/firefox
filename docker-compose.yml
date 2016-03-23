@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  firefox:
+    build: ./
+    read_only: true
+    networks:
+      - net
+      - pulseaudio
+    devices:
+      - /dev/dri
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - /var/run/cups:/var/run/cups:ro
+      - $HOME/.mozilla:/home/firefox/.mozilla
+      - $HOME/Downloads:/home/firefox/Downloads
+    environment:
+      DISPLAY: unix$DISPLAY
+      PULSE_SERVER: tcp:pulseaudio:4713
+
+networks:
+  net: {}
+  pulseaudio:
+    external:
+      name: pulseaudio_net
