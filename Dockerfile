@@ -18,6 +18,7 @@ RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list \
         adwaita-icon-theme \
         gnome-themes-standard gnome-themes-standard-data \
         flashplugin-nonfree \
+        fonts-droid fonts-freefont-ttf \
     && rm -rf /var/lib/apt/lists
 
 # If you do not want to use pulseaudio
