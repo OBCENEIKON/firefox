@@ -5,22 +5,24 @@ services:
     build: ./
     read_only: true
     networks:
-      - net
-      - pulseaudio
+      - isolated
     devices:
       - /dev/dri
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - /usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:/usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:ro
+      - /usr/share/themes:/usr/share/themes:ro
+      - /usr/share/icons:/usr/share/icons:ro
       - /var/run/cups:/var/run/cups:ro
+      # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - /etc/machine-id:/etc/machine-id:ro
+      - /run/user/1000/pulse:/run/user/1000/pulse
       - $HOME/.mozilla:/home/firefox/.mozilla
       - $HOME/Downloads:/home/firefox/Downloads
     environment:
       DISPLAY: unix$DISPLAY
-      PULSE_SERVER: tcp:pulseaudio:4713
 
 networks:
-  net: {}
-  pulseaudio:
+  isolated:
     external:
-      name: pulseaudio_net
+      name: isolated

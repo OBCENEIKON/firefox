@@ -12,7 +12,7 @@ Extensions
 I have decided to add here a list of the Firefox's extensions I am using
 ```
 https://www.eff.org/privacybadger
-https://adblockplus.org/
+https://adblockultimate.net/
 ```
 
 Extra
@@ -29,3 +29,18 @@ Check the codecs
 ```
 https://www.youtube.com/html5
 ```
+
+To initialize the new Firefox profile
+```
+docker-compose run --rm firefox -P
+```
+
+Limitations
+===========
+
+X11 and PulseAudio
+------------------
+
+The user ID must match the ID of a user that runs the container,
+otherwise X neither audio will work.
+

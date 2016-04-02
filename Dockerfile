@@ -7,23 +7,16 @@ MAINTAINER Andrey Arapov <andrey.arapov@nixaid.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # -- Install the prerequisites
-# adwaita-icon-theme is required so that cursor size is not ultra tiny
-# gnome-themes-standard and gnome-themes-standard-data are for nice GTK UI
 RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -yq bzip2 libfreetype6 libfontconfig1 \
         libxrender1 libxext6 libxdamage1 libxcomposite1 libasound2 \
         libdbus-glib-1-2 libgtk2.0-0 libxt6 libcanberra-gtk-module \
+        libv4l-0 \
         pulseaudio \
-        adwaita-icon-theme \
-        gnome-themes-standard gnome-themes-standard-data \
         flashplugin-nonfree \
         fonts-droid fonts-freefont-ttf \
     && rm -rf /var/lib/apt/lists
-
-# If you do not want to use pulseaudio
-# COPY asoundrc /etc/asound.conf
-# RUN chgrp audio /etc/asound.conf && chmod 0640 /etc/asound.conf
 
 # -- Adobe Flash Plugin
 RUN update-flashplugin-nonfree --install
