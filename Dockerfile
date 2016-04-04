@@ -70,11 +70,6 @@ ENV HOME /home/$USER
 RUN useradd -u $UID -m -d $HOME -s /usr/sbin/nologin $USER \
     && usermod -aG $GROUPS $USER
 
-# for some unknown reason the ownCloud's (v9.0.0) calendar (v1.0.0.0) doesn't
-# show up the calendars when the time is set to UTC/Zulu
-RUN echo "UTC" > /etc/timezone \
-    && dpkg-reconfigure tzdata
-
 WORKDIR $HOME
 USER $USER
 

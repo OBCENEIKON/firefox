@@ -15,6 +15,7 @@ services:
       - /usr/share/icons:/usr/share/icons:ro
       - /var/run/cups:/var/run/cups:ro
       # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - /etc/localtime:/etc/localtime:ro
       - /etc/machine-id:/etc/machine-id:ro
       - /run/user/1000/pulse:/run/user/1000/pulse
       - $HOME/.mozilla:/home/firefox/.mozilla
