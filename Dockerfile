@@ -31,10 +31,11 @@ RUN dpkg -i /tmp/google-talkplugin_current_amd64.deb \
     && rm -f /tmp/google-talkplugin_current_amd64.deb
 
 # -- Java x64 RE plugin
-# Linux x64 http://javadl.sun.com/webapps/download/AutoDL?BundleId=116021
+# https://java.com/en/download/manual.jsp
+# https://www.java.com/verify
 ENV JAVA_VER 8
-ENV JAVA_JRE_UVER 73
-ENV JAVA_JRE_FVER 1.8.0_73
+ENV JAVA_JRE_UVER 77
+ENV JAVA_JRE_FVER 1.8.0_77
 ENV JAVA_FONTS "/usr/share/fonts/truetype"
 ENV _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on \
                -Dswing.aatext=true \
@@ -47,7 +48,7 @@ ENV _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on \
 #   - javax.swing.plaf.nimbus.NimbusLookAndFeel
 #   - com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 #   - com.sun.java.swing.plaf.motif.MotifLookAndFeel
-ADD http://javadl.sun.com/webapps/download/AutoDL?BundleId=116021 /tmp/jre-linux-x64.tar.gz
+ADD http://javadl.sun.com/webapps/download/AutoDL?BundleId=207221 /tmp/jre-linux-x64.tar.gz
 RUN mkdir -p /opt/java/64 \
     && tar xf /tmp/jre-linux-x64.tar.gz -C /opt/java/64/ \
     && cd /opt/java/64/ \
