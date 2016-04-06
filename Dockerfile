@@ -14,12 +14,9 @@ RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list \
         libdbus-glib-1-2 libgtk2.0-0 libxt6 libcanberra-gtk-module \
         libv4l-0 \
         pulseaudio \
-        flashplugin-nonfree \
+        libpango1.0-0 \
         fonts-droid fonts-freefont-ttf \
     && rm -rf /var/lib/apt/lists
-
-# -- Adobe Flash Plugin
-RUN update-flashplugin-nonfree --install
 
 # -- The Firefox
 ENV FIREFOX_VER 45.0.1
