@@ -13,8 +13,8 @@ RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list \
         libxrender1 libxext6 libxdamage1 libxcomposite1 libasound2 \
         libdbus-glib-1-2 libgtk2.0-0 libxt6 libcanberra-gtk-module \
         libv4l-0 \
-        pulseaudio \
         libpango1.0-0 \
+        pulseaudio \
         fonts-droid fonts-freefont-ttf \
     && rm -rf /var/lib/apt/lists
 
@@ -61,7 +61,7 @@ RUN mkdir -p /opt/java/64 \
     && rm -f /tmp/jre-linux-x64.tar.gz
 
 # -- Define a user under which the firefox will be running
-ENV USER firefox
+ENV USER user
 ENV UID 1000
 ENV GROUPS video,audio
 ENV HOME /home/$USER
@@ -71,15 +71,4 @@ RUN useradd -u $UID -m -d $HOME -s /usr/sbin/nologin $USER \
 WORKDIR $HOME
 USER $USER
 
-# Allow write to the following directories when the container starts in
-# in readonly mode
-RUN mkdir -p $HOME/.cache \
-             $HOME/.config \
-             $HOME/.local \
-             $HOME/.java
-VOLUME [ "$HOME/.cache", \
-         "$HOME/.config", \
-         "$HOME/.local", \
-         "$HOME/.java", \
-         "/tmp" ]
 ENTRYPOINT [ "/opt/mozilla/firefox/firefox" ]
