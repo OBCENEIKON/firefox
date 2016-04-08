@@ -26,6 +26,7 @@ services:
       - isolated
     devices:
       - /dev/dri
+      - /dev/video0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:/usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:ro
@@ -35,11 +36,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/machine-id:/etc/machine-id:ro
       - /run/user/1000/pulse:/run/user/1000/pulse
+      - /dev/shm:/dev/shm:ro
       # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
       # - $HOME/.mozilla:/home/firefox/.mozilla
       - data:/home/user/.mozilla
       - $HOME/Downloads:/home/user/Downloads
     environment:
-      DISPLAY: unix$DISPLAY
+      - DISPLAY=unix$DISPLAY
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
     depends_on:
       - preseed

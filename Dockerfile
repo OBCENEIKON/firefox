@@ -60,6 +60,17 @@ RUN mkdir -p /opt/java/64 \
     && update-alternatives --set javaws /opt/java/64/jre/bin/javaws \
     && rm -f /tmp/jre-linux-x64.tar.gz
 
+# For testing the audio
+# docker-compose run --rm --entrypoint /bin/bash firefox
+# aplay -L
+# pactl list
+# arecord -D pulse -f cd | aplay -D pulse -B 10000 -
+# RUN apt-get update && apt-get install -y alsa-utils
+#
+# WebRTC online test for Microphone, Camera, Network, Connectivity and Throughput
+# https://test.webrtc.org/
+# https://webaudiodemos.appspot.com/AudioRecorder/index.html
+
 # -- Define a user under which the firefox will be running
 ENV USER user
 ENV UID 1000
