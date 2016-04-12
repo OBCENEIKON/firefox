@@ -19,7 +19,7 @@ RUN sed -i.bak 's/jessie main/jessie main contrib/g' /etc/apt/sources.list \
     && rm -rf /var/lib/apt/lists
 
 # -- The Firefox
-ENV FIREFOX_VER 45.0.1
+ENV FIREFOX_VER 45.0.2
 ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VER/linux-x86_64/en-US/firefox-$FIREFOX_VER.tar.bz2 /tmp/firefox.tar.bz2
 RUN mkdir /opt/mozilla \
     && tar xf /tmp/firefox.tar.bz2 -C /opt/mozilla/ \
@@ -82,4 +82,5 @@ RUN useradd -u $UID -m -d $HOME -s /usr/sbin/nologin $USER \
 WORKDIR $HOME
 USER $USER
 
+VOLUME [ "/tmp" ]
 ENTRYPOINT [ "/opt/mozilla/firefox/firefox" ]

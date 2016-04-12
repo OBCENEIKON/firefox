@@ -9,26 +9,16 @@ networks:
       name: isolated
 
 services:
-  preseed:
-    # host2docker
-    # this will create a data volume and then copy user's firefox profile data
-    # when the data volume is empty
-    image: busybox
-    network_mode: bridge
-    volumes:
-      - $HOME/.mozilla:/source
-      - data:/target
-    command: /bin/sh -c "[ -d "firefox" ] || (( cd /source && tar cf - . ) | ( cd /target; tar xfp - ))"
-
   firefox:
-    build: ./
+    read_only: true
+    image: andrey01/firefox
     networks:
       - isolated
     devices:
       - /dev/dri
       - /dev/video0
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - /usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:/usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:ro
       - /usr/share/themes:/usr/share/themes:ro
       - /usr/share/icons:/usr/share/icons:ro
@@ -38,11 +28,8 @@ services:
       - /run/user/1000/pulse:/run/user/1000/pulse
       - /dev/shm:/dev/shm:ro
       # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
-      # - $HOME/.mozilla:/home/firefox/.mozilla
-      - data:/home/user/.mozilla
+      - data:/home/user
       - $HOME/Downloads:/home/user/Downloads
     environment:
       - DISPLAY=unix$DISPLAY
       - PULSE_SERVER=unix:/run/user/1000/pulse/native
-    depends_on:
-      - preseed
