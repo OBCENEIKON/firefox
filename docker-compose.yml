@@ -3,33 +3,24 @@ version: '2'
 volumes:
   data: {}
 
-networks:
-  isolated:
-    external:
-      name: isolated
-
 services:
   firefox:
     read_only: true
     image: andrey01/firefox
-    networks:
-      - isolated
+    network_mode: bridge
     devices:
       - /dev/dri
       - /dev/video0
     volumes:
+      - /dev/shm:/dev/shm:ro
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
-      - /usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:/usr/lib/x86_64-linux-gnu/gtk-2.0/2.10.0/engines:ro
-      - /usr/share/themes:/usr/share/themes:ro
-      - /usr/share/icons:/usr/share/icons:ro
-      - /var/run/cups:/var/run/cups:ro
       - /etc/localtime:/etc/localtime:ro
       - /etc/machine-id:/etc/machine-id:ro
-      - /run/user/1000/pulse:/run/user/1000/pulse
-      - /dev/shm:/dev/shm:ro
-      # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - $XDG_RUNTIME_DIR/pulse:/run/user/1000/pulse
+      - /var/run/cups:/var/run/cups:ro
       - data:/home/user
       - $HOME/Downloads:/home/user/Downloads
+      # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
     environment:
       - DISPLAY=unix$DISPLAY
-      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+      - PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native
