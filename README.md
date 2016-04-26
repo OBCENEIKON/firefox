@@ -45,6 +45,19 @@ Check the codecs
 https://www.youtube.com/html5
 ```
 
+Be careful playing with the following settings!
+
+http://www.sitepoint.com/firefox-enable-webgl-blacklisted-graphics-card/
+
+```
+about:config
+layers.acceleration.force-enabled;true
+gl.require-hardware;true
+webgl.force-enabled;true
+
+about:support
+```
+
 
 # Extra
 
