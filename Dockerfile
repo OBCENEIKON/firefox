@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get -fy install && \
     apt-get -y install bzip2 libgtk-3-0 libdbus-glib-1-2 libxt6 \
                        libasound2 libgtk2.0-0 libpango1.0-0 libv4l-0 \
-                       pulseaudio libgl1-mesa-glx && \
+                       pulseaudio libgl1-mesa-glx x264 && \
     rm -rf /var/lib/apt/lists
 
 # Obtain the Mozilla Firefox
