@@ -14,7 +14,13 @@ RUN apt-get update && \
                        pulseaudio libgl1-mesa-glx x264 && \
     rm -rf /var/lib/apt/lists
 
-# Obtain the Mozilla Firefox
+# Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
+#             files created by the host, causing sound to stop working.
+#             To fix this, we either want to disable the shm or mount /dev/shm
+#             in read-only mode when starting the container.
+RUN echo "enable-shm = no" >> /etc/pulse/client.conf
+
+# Mozilla Firefox
 # Deps: bzip2 libgtk-3-0 libdbus-glib-1-2 libxt6
 ENV FIREFOX_VER 46.0
 ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VER/linux-x86_64/en-US/firefox-$FIREFOX_VER.tar.bz2 /tmp/firefox.tar.bz2
@@ -60,12 +66,6 @@ RUN mkdir -p /opt/java/64 && \
     update-alternatives --set java /opt/java/64/jre/bin/java && \
     update-alternatives --install "/usr/bin/javaws" "javaws" "/opt/java/64/jre/bin/javaws" 1 && \
     update-alternatives --set javaws /opt/java/64/jre/bin/javaws
-
-# Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
-#             files created by the host, causing sound to stop working.
-#             To fix this, we either want to disable the shm or mount /dev/shm
-#             in read-only mode when starting the container.
-RUN echo "enable-shm = no" >> /etc/pulse/client.conf
 
 # Define a user under which the Firefox will be running
 ENV USER user
