@@ -2,9 +2,13 @@
 
 ## Launching the Firefox
 
+You can use the following shortcut function and place it to your `~/.bash_aliases` file
+
 ```
-alias firefox="docker-compose -f ~/docker/firefox/docker-compose.yml run --rm firefox"
+function docker_helper() { (cd ~/docker/$1; docker-compose run --rm "$@" & disown) }
+function firefox() { (docker_helper $FUNCNAME $@) }
 ```
+
 
 # Troubleshooting
 
