@@ -52,14 +52,14 @@ ENV _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on \
 ADD http://javadl.sun.com/webapps/download/AutoDL?BundleId=$JAVA_BUNDLE_ID /tmp/jre.tar.gz
 RUN mkdir -p /opt/java/64 && \
     tar xf /tmp/jre.tar.gz -C /opt/java/64/ && \
+    rm -f /tmp/jre.tar.gz && \
     cd /opt/java/64/ && \
     ln -sv jre${JAVA_JRE_FVER} jre && \
     ln -sv /opt/java/64/jre/lib/amd64/libnpjp2.so /usr/lib/mozilla/plugins/ && \
     update-alternatives --install "/usr/bin/java" "java" "/opt/java/64/jre/bin/java" 1 && \
     update-alternatives --set java /opt/java/64/jre/bin/java && \
     update-alternatives --install "/usr/bin/javaws" "javaws" "/opt/java/64/jre/bin/javaws" 1 && \
-    update-alternatives --set javaws /opt/java/64/jre/bin/javaws && \
-    rm -f /tmp/jre.tar.gz
+    update-alternatives --set javaws /opt/java/64/jre/bin/javaws
 
 # Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
 #             files created by the host, causing sound to stop working.
