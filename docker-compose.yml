@@ -5,21 +5,20 @@ volumes:
 
 services:
   firefox:
-    read_only: true
+    # docker build -t andrey01/firefox .
     image: andrey01/firefox
+    read_only: true
     network_mode: bridge
     devices:
       - /dev/dri
       - /dev/video0
     volumes:
-      - /dev/shm:/dev/shm:ro
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/machine-id:/etc/machine-id:ro
       - $XDG_RUNTIME_DIR/pulse:/run/user/1000/pulse
-      - /var/run/cups:/var/run/cups:ro
+      - /dev/shm:/dev/shm:ro
       - data:/home/user
       - $HOME/Downloads:/home/user/Downloads
+      - /var/run/cups:/var/run/cups:ro
       # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
     environment:
       - DISPLAY=unix$DISPLAY

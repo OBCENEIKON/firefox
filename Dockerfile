@@ -18,15 +18,17 @@ RUN apt-get update && \
 # Deps: bzip2 libgtk-3-0 libdbus-glib-1-2 libxt6
 ENV FIREFOX_VER 46.0
 ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VER/linux-x86_64/en-US/firefox-$FIREFOX_VER.tar.bz2 /tmp/firefox.tar.bz2
-RUN mkdir /opt/mozilla && \
-    tar xf /tmp/firefox.tar.bz2 -C /opt/mozilla/ && \
-    rm -f /tmp/firefox.tar.bz2
+RUN cd /tmp && \
+    mkdir /opt/mozilla && \
+    tar xf firefox.tar.bz2 -C /opt/mozilla/ && \
+    rm -f firefox.tar.bz2
 
 # Google Hangouts
 # Deps: libasound2 libgtk2.0-0 libpango1.0-0 libv4l-0
-ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /tmp/google-talkplugin_current_amd64.deb
-RUN dpkg -i /tmp/google-talkplugin_current_amd64.deb && \
-    rm -f /tmp/google-talkplugin_current_amd64.deb
+ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /tmp/google-talkplugin.deb
+RUN cd /tmp && \
+    dpkg -i google-talkplugin.deb && \
+    rm -f google-talkplugin.deb
 
 # Java x64 RE plugin
 # https://java.com/en/download/manual.jsp
@@ -47,9 +49,9 @@ ENV _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on \
 #   - javax.swing.plaf.nimbus.NimbusLookAndFeel
 #   - com.sun.java.swing.plaf.gtk.GTKLookAndFeel
 #   - com.sun.java.swing.plaf.motif.MotifLookAndFeel
-ADD http://javadl.sun.com/webapps/download/AutoDL?BundleId=$JAVA_BUNDLE_ID /tmp/jre-linux-x64.tar.gz
+ADD http://javadl.sun.com/webapps/download/AutoDL?BundleId=$JAVA_BUNDLE_ID /tmp/jre.tar.gz
 RUN mkdir -p /opt/java/64 && \
-    tar xf /tmp/jre-linux-x64.tar.gz -C /opt/java/64/ && \
+    tar xf /tmp/jre.tar.gz -C /opt/java/64/ && \
     cd /opt/java/64/ && \
     ln -sv jre${JAVA_JRE_FVER} jre && \
     ln -sv /opt/java/64/jre/lib/amd64/libnpjp2.so /usr/lib/mozilla/plugins/ && \
@@ -57,7 +59,7 @@ RUN mkdir -p /opt/java/64 && \
     update-alternatives --set java /opt/java/64/jre/bin/java && \
     update-alternatives --install "/usr/bin/javaws" "javaws" "/opt/java/64/jre/bin/javaws" 1 && \
     update-alternatives --set javaws /opt/java/64/jre/bin/javaws && \
-    rm -f /tmp/jre-linux-x64.tar.gz
+    rm -f /tmp/jre.tar.gz
 
 # Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
 #             files created by the host, causing sound to stop working.
@@ -70,11 +72,12 @@ ENV USER user
 ENV UID 1000
 ENV GROUPS video,audio
 ENV HOME /home/$USER
-RUN useradd -u $UID -m -d $HOME -s /usr/sbin/nologin $USER && \
-    usermod -aG $GROUPS $USER
+RUN useradd -u $UID -m -d $HOME -s /usr/sbin/nologin -G $GROUPS $USER
 
-WORKDIR $HOME
 USER $USER
+WORKDIR $HOME
 
+# Java JRE requires /tmp directory to be writable
 VOLUME [ "/tmp" ]
+
 ENTRYPOINT [ "/opt/mozilla/firefox/firefox" ]
