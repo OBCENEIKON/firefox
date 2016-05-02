@@ -9,9 +9,22 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get -y dist-upgrade && \
     apt-get -fy install && \
-    apt-get -y install bzip2 libgtk-3-0 libdbus-glib-1-2 libxt6 \
-                       libasound2 libgtk2.0-0 libpango1.0-0 libv4l-0 \
-                       pulseaudio libgl1-mesa-glx x264 && \
+    apt-get -y install bzip2 libgtk2.0-0 libgtk-3-0 libdbus-glib-1-2 libxt6 \
+                       pulseaudio libgl1-mesa-glx x264 \
+                       libpango1.0-0 libv4l-0 \
+                       fonts-opensymbol ttf-ubuntu-font-family \
+                       fonts-tlwg-waree-ttf fonts-tlwg-umpush-ttf \
+                       fonts-tlwg-typo-ttf fonts-tlwg-typist-ttf \
+                       fonts-tlwg-typewriter-ttf fonts-tlwg-sawasdee-ttf \
+                       fonts-tlwg-purisa-ttf fonts-tlwg-norasi-ttf \
+                       fonts-tlwg-mono-ttf fonts-tlwg-loma-ttf \
+                       fonts-tlwg-laksaman-ttf fonts-tlwg-kinnari-ttf \
+                       fonts-tlwg-garuda-ttf fonts-tibetan-machine \
+                       fonts-takao-pgothic fonts-symbola fonts-sil-padauk \
+                       fonts-sil-abyssinica fonts-nanum fonts-lohit-guru \
+                       fonts-lklug-sinhala fonts-liberation fonts-lao \
+                       fonts-khmeros-core fonts-kacst fonts-kacst-one \
+                       fonts-guru-extra fonts-freefont-ttf fonts-dejavu-core && \
     rm -rf /var/lib/apt/lists
 
 # Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
