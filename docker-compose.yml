@@ -23,3 +23,4 @@ services:
     environment:
       - DISPLAY=unix$DISPLAY
       - PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native
+      - TZ=Europe/Amsterdam
