@@ -11,7 +11,7 @@ services:
     network_mode: bridge
     devices:
       - /dev/dri
-      - /dev/video0
+      # - /dev/video0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $XDG_RUNTIME_DIR/pulse:/run/user/1000/pulse
