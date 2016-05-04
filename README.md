@@ -69,7 +69,6 @@ about:support
 
 Here is the list of Firefox's extensions I am using
 
-```
-https://www.eff.org/privacybadger
-https://adblockultimate.net/
-```
+- [Privacy Badger](https://www.eff.org/privacybadger)
+
+- [uBlock Origin](https://github.com/gorhill/uBlock)
