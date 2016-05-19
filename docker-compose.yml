@@ -19,7 +19,7 @@ services:
       - data:/home/user
       - $HOME/Downloads:/home/user/Downloads
       - /var/run/cups:/var/run/cups:ro
-      # - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
+      - /tmp/krb5cc_1000:/tmp/krb5cc_1000:ro
     environment:
       - DISPLAY=unix$DISPLAY
       - PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native
