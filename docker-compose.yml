@@ -15,7 +15,11 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $XDG_RUNTIME_DIR/pulse:/run/user/1000/pulse
-      - /dev/shm:/dev/shm:ro
+      # /dev/shm must be RW, otherwise webcam (/dev/video0) won't work
+      # mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0
+      #   X11 error: BadAccess (attempt to access private resource denied)
+      #   X11 error: BadShmSeg (invalid shared segment parameter)
+      - /dev/shm:/dev/shm
       - data:/home/user
       - $HOME/Downloads:/home/user/Downloads
       - /var/run/cups:/var/run/cups:ro
