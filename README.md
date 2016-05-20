@@ -5,8 +5,11 @@
 You can use the following shortcut function and place it to your `~/.bash_aliases` file
 
 ```
-function docker_helper() { (cd ~/docker/$1; docker-compose run --rm "$@" & disown) }
-function firefox() { (docker_helper $FUNCNAME $@) }
+alias docker="sudo -E docker"
+alias docker-compose="sudo -E docker-compose"
+
+function docker_helper() { { pushd ~/docker/$1; docker-compose rm -fa "$1"; docker-compose run -d --name "$1" "$@"; popd; } }
+function firefox() { { docker_helper $FUNCNAME $@; } }
 ```
 
 
