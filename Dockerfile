@@ -7,24 +7,26 @@ ENV DEBIAN_FRONTEND noninteractive
 # Keep the image updated and install the dependencies
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y dist-upgrade && \
     apt-get -fy install && \
     apt-get -y install bzip2 libgtk2.0-0 libgtk-3-0 libdbus-glib-1-2 libxt6 paxctl \
                        pulseaudio libgl1-mesa-glx x264 \
                        libpango1.0-0 libv4l-0 \
-                       fonts-opensymbol ttf-ubuntu-font-family \
-                       fonts-tlwg-waree-ttf fonts-tlwg-umpush-ttf \
-                       fonts-tlwg-typo-ttf fonts-tlwg-typist-ttf \
-                       fonts-tlwg-typewriter-ttf fonts-tlwg-sawasdee-ttf \
-                       fonts-tlwg-purisa-ttf fonts-tlwg-norasi-ttf \
-                       fonts-tlwg-mono-ttf fonts-tlwg-loma-ttf \
-                       fonts-tlwg-laksaman-ttf fonts-tlwg-kinnari-ttf \
-                       fonts-tlwg-garuda-ttf fonts-tibetan-machine \
-                       fonts-takao-pgothic fonts-symbola fonts-sil-padauk \
-                       fonts-sil-abyssinica fonts-nanum fonts-lohit-guru \
-                       fonts-lklug-sinhala fonts-liberation fonts-lao \
-                       fonts-khmeros-core fonts-kacst fonts-kacst-one \
-                       fonts-guru-extra fonts-freefont-ttf fonts-dejavu-core && \
+                       fonts-dejavu-core fonts-freefont-ttf fonts-guru-extra \
+                       fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao \
+                       fonts-liberation fonts-lklug-sinhala fonts-lohit-guru \
+                       fonts-nanum fonts-opensymbol fonts-sil-abyssinica \
+                       fonts-sil-padauk fonts-symbola fonts-takao-pgothic \
+                       fonts-tibetan-machine fonts-tlwg-garuda-ttf \
+                       fonts-tlwg-kinnari-ttf fonts-tlwg-laksaman-ttf \
+                       fonts-tlwg-loma-ttf fonts-tlwg-mono-ttf \
+                       fonts-tlwg-norasi-ttf fonts-tlwg-purisa-ttf \
+                       fonts-tlwg-sawasdee-ttf fonts-tlwg-typewriter-ttf \
+                       fonts-tlwg-typist-ttf fonts-tlwg-typo-ttf \
+                       fonts-tlwg-umpush-ttf fonts-tlwg-waree-ttf \
+                       ttf-bitstream-vera ttf-dejavu-core ttf-ubuntu-font-family \
+                       fonts-arphic-ukai fonts-arphic-uming \
+                       fonts-ipafont-mincho fonts-ipafont-gothic \
+                       fonts-unfonts-core && \
     rm -rf /var/lib/apt/lists
 
 # Workaround: pulseaudio client library likes to remove /dev/shm/pulse-shm-*
