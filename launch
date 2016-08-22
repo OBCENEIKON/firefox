@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#
+# Make errors visible upon `docker logs -f steam` command
+#
+exec 2>&1
+
+#
+# Befriend with grsecurity patched Linux kernel
+#
+if [ -r /proc/sys/kernel/grsecurity/tpe_gid ]; then
+  groupadd -r -g $(cat /proc/sys/kernel/grsecurity/tpe_gid) grsec-tpe
+  usermod -aG grsec-tpe $USER
+  setfattr -n user.pax.flags -v "m" \
+            /opt/mozilla/firefox/firefox \
+            /opt/mozilla/firefox/plugin-container \
+            /opt/java/64/jre/bin/java \
+            /opt/java/64/jre/lib/amd64/libnpjp2.so
+            # /lib/x86_64-linux-gnu/ld-2.23.so
+fi
+
+su -s /bin/sh -p user -c "/opt/mozilla/firefox/firefox $@"

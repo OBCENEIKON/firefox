@@ -7,7 +7,6 @@ services:
   firefox:
     # docker build -t andrey01/firefox .
     image: andrey01/firefox
-    read_only: true
     network_mode: bridge
     devices:
       - /dev/dri
