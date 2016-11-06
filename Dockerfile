@@ -56,9 +56,9 @@ RUN cd /tmp && \
 # https://java.com/en/download/manual.jsp
 # https://www.java.com/verify
 ENV JAVA_VER 8
-ENV JAVA_JRE_UVER 101
-ENV JAVA_JRE_FVER 1.8.0_101
-ENV JAVA_BUNDLE_ID 211989
+ENV JAVA_JRE_UVER 111
+ENV JAVA_JRE_FVER 1.8.0_111
+ENV JAVA_BUNDLE_ID 216424
 ENV JAVA_FONTS "/usr/share/fonts/truetype"
 ENV _JAVA_OPTIONS "-Dawt.useSystemAAFontSettings=on \
                -Dswing.aatext=true \
