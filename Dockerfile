@@ -6,9 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Keep the image updated and install the dependencies
 RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get -fy install && \
-    apt-get -y install bzip2 libgtk2.0-0 libgtk-3-0 libdbus-glib-1-2 libxt6 attr \
+    apt-get -y --no-install-recommends install ca-certificates \
+                       bzip2 libgtk2.0-0 libgtk-3-0 libdbus-glib-1-2 libxt6 attr \
                        pulseaudio libgl1-mesa-glx x264 \
                        libpango1.0-0 libv4l-0 \
                        fonts-dejavu-core fonts-freefont-ttf fonts-guru-extra \
